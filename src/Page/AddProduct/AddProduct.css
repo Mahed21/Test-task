@@ -1,0 +1,12 @@
+.btn {
+  background-color: rgb(97, 71, 149);
+  color: white;
+}
+.btn:hover {
+  color: white;
+}
+@media (max-width: 940px) {
+  .input {
+    width: 80% !important;
+  }
+}
