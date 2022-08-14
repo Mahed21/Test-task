@@ -3,12 +3,27 @@ import { Link } from "react-router-dom";
 import DisplayProduct from "../DisplayProduct/DisplayProduct";
 
 const Home = () => {
+  let deleteIds = [];
   const [product, setProduct] = useState([]);
+
+  const handleChange = (event, id) => {
+    if (event.target.checked) {
+      deleteIds = [...deleteIds, id];
+      console.log("deleted ids:", deleteIds);
+    } else {
+      deleteIds = deleteIds.filter((deleteId) => deleteId !== id);
+      console.log("deleted ids:", deleteIds);
+    }
+
+    console.log("called");
+  };
+
   useEffect(() => {
     fetch("http://localhost:3002/product")
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, []);
+
   return (
     <div className="container mt-5">
       <nav className="navbar navbar-light">
@@ -29,7 +44,8 @@ const Home = () => {
         {product.map((products) => (
           <DisplayProduct
             products={products}
-            // key={products.Id}
+            key={products.Id}
+            onDeletedIdChange={(event) => handleChange(event, products.Id)}
           ></DisplayProduct>
         ))}
       </div>

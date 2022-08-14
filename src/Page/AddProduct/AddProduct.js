@@ -6,24 +6,20 @@ import { useNavigate } from "react-router";
 
 const AddProduct = () => {
   let navigate = useNavigate();
-  const [selects, setSelect] = useState("00");
-  const [sku, setSku] = useState("00");
-  const [name, setName] = useState("00");
-  const [price, setPrice] = useState("00");
-  const [size, setSize] = useState("00");
-  const [weight, setweight] = useState("00");
-  const [height, setHeight] = useState("00");
-  const [width, setWidth] = useState("00");
-  const [length, setLength] = useState("00");
+  const [selects, setSelect] = useState(null);
+  const [sku, setSku] = useState(null);
+  const [name, setName] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [size, setSize] = useState(null);
+  const [weight, setweight] = useState(null);
+  const [height, setHeight] = useState(null);
+  const [width, setWidth] = useState(null);
+  const [length, setLength] = useState(null);
 
   const addProduct = (e) => {
     e.preventDefault();
-    if (sku !== "00" && price !== "00" && name !== "00") {
-      if (
-        size !== "00" ||
-        weight !== "00" ||
-        (height !== "00" && width !== "00" && length !== "00")
-      ) {
+    if (sku && price && name) {
+      if (size || weight || (height && width && length)) {
         axios
           .post("http://localhost:3002/product", {
             sku: sku,
