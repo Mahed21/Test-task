@@ -3,11 +3,8 @@ import "./DisplayProduct.css";
 
 const DisplayProduct = (props) => {
   const { onDeletedIdChange } = props;
-  const { Id, sku, name, price, size, weight, height, width, length } =
+  const { _id, sku, name, price, size, weight, height, width, length } =
     props.products;
-  console.log(size);
-  console.log(weight);
-  console.log(height);
 
   return (
     <div className="mb-3">

@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./AddProduct.css";
@@ -20,20 +19,29 @@ const AddProduct = () => {
     e.preventDefault();
     if (sku && price && name) {
       if (size || weight || (height && width && length)) {
-        axios
-          .post("http://localhost:3002/product", {
-            sku: sku,
-            name: name,
-            price: price,
-            size: size,
-            weight: weight,
-            height: height,
-            width: width,
-            length: length,
-          })
-          .then(() => {
-            console.log("success");
-            navigate("/");
+        const newUser = {
+          sku,
+          name,
+          price,
+          size,
+          weight,
+          height,
+          width,
+          length,
+        };
+        fetch("https://secure-escarpment-75090.herokuapp.com/products", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              navigate("/");
+              e.target.reset();
+            }
           });
       } else {
         alert("fill all input data");
@@ -47,7 +55,7 @@ const AddProduct = () => {
       <form onSubmit={addProduct}>
         <nav className="navbar navbar-light">
           <div className="container-fluid">
-            <a className="navbar-brand">Product Add</a>
+            <h5 className="navbar-brand">Product Add</h5>
             <div className="d-flex">
               <input type="submit" value="save" className="btn me-2" />
               <Link to="/">
